@@ -15,4 +15,4 @@ RUN npm install && \
 ENTRYPOINT ["npm"]
 CMD ["start"]
 
-EXPOSE 3000
+EXPOSE 3306
