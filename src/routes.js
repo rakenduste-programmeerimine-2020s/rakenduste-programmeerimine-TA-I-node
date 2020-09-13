@@ -11,25 +11,6 @@ router.get('/health', (context) => {
     context.body = 'OK';
 });
 
-router.get('/topics/:id', async (context) => {
-    const { name } = context.body;
-    const topics = await Topic.findOne({ name: { name } });
-
-    context.status = 200;
-    context.body = topics
-
-    return;
-});
-
-router.put('/topics/update/:id', async (ctx) => {
-    await console.log(ctx);
-    Topic.findByIdAndUpdate({ id: ctx.request.body._id }, { name: ctx.request.body.name })
-        .catch((error) => {
-            console.log(error)
-        })
-})
-
-
 router.get('/topics', async (context) => {
     const topics = await Topic.find({});
 
@@ -39,27 +20,16 @@ router.get('/topics', async (context) => {
     return;
 })
 
-router.post('/topics', async (ctx) => {
-    console.log(ctx)
+router.post('/topics', async (context) => {
+    const { name } = context.request.body
 
-    const { name } = ctx.request.body
-    newPost = {
-        name: { name }
-    }
+    const newTopic = new Topic({ name })
+    const topic = await newTopic.save()
 
-    let newTopic = new Topic(newPost)
-
-
-    newTopic.save()
-        .then(() => {
-            console.log("Andmed salvestatud")
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-
+    context.status = 201;
+    context.body = topic;
 
     return;
-})
+});
 
 module.exports = router;
