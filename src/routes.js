@@ -5,12 +5,6 @@ const router = new Router()
 
 const Topic = require('./models/topic')
 
-router.get('/health', (context) => {
-    console.log('korras')
-    context.status = 200;
-    context.body = 'OK';
-});
-
 router.get('/topics', async (context) => {
     const topics = await Topic.find({});
 
