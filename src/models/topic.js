@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 
 const TopicSchema = new Schema(
     {
-        id: {},
         name: { type: String, required: true },
         viewCount: { type: Number, default: 0 }
     },
@@ -12,4 +11,4 @@ const TopicSchema = new Schema(
     }
 )
 
-module.exports = mongoose.model('two/Topic', TopicSchema)
+module.exports = mongoose.model('Topic', TopicSchema)
