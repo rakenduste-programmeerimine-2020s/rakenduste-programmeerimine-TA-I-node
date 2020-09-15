@@ -22,5 +22,4 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     })
 
 
-app.proxy = true;
 module.exports = app;
