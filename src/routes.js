@@ -1,39 +1,42 @@
 const Router = require('koa-router');
 const router = new Router();
-const Topic = require('./models/topic')
+const Topic = require('./models/topic');
 
-router.get('/topics:id', async (context) => {
+router.get('/topics:id', async context => {
   const topic = await Topic.find({ id: context.params.id });
 
   context.status = 200;
-  context.body = topic
+  context.body = topic;
 
   return;
 });
 
-router.get('/topics', async (context) => {
+router.get('/topics', async context => {
   const topics = await Topic.find({});
 
   context.status = 200;
-  context.body = topics
+  context.body = topics;
 
   return;
 });
 
-router.put('/topics:id', async (context) => {
+router.put('/topics:id', async context => {
+  // Early return if name is false-y
+  if (!context.request.body.name) return;
+
   const [id, name] = [context.params.id, context.request.body.name];
-  await Topic.findOneAndUpdate({ id }, { name })
+  await Topic.findOneAndUpdate({ _id: id }, { name })
     .catch(e => {
       console.error(e);
-    })
-  return
+    });
+  return;
 });
 
-router.post('/topics', async (context) => {
-  const { name } = context.request.body
+router.post('/topics', async context => {
+  const { name } = context.request.body;
 
-  const newTopic = new Topic({ name })
-  const topic = await newTopic.save()
+  const newTopic = new Topic({ name });
+  const topic = await newTopic.save();
 
   context.status = 201;
   context.body = topic;
