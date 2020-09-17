@@ -2,6 +2,15 @@ const Router = require('koa-router');
 const router = new Router();
 const Topic = require('./models/topic')
 
+router.get('/topics:id', async (context) => {
+  const topic = await Topic.find({ id: context.params.id });
+
+  context.status = 200;
+  context.body = topic
+
+  return;
+});
+
 router.get('/topics', async (context) => {
   const topics = await Topic.find({});
 
@@ -9,6 +18,15 @@ router.get('/topics', async (context) => {
   context.body = topics
 
   return;
+});
+
+router.put('/topics:id', async (context) => {
+  const [id, name] = [context.params.id, context.request.body.name];
+  await Topic.findOneAndUpdate({ id }, { name })
+    .catch(e => {
+      console.error(e);
+    })
+  return
 });
 
 router.post('/topics', async (context) => {
