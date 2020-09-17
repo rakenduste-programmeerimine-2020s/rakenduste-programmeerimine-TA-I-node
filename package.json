@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon -L index.js"
+    "start": "node src/server.js",
+    "dev": "nodemon --inspect=0.0.0.0:9002 -L src/server.js",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,13 @@
   },
   "homepage": "https://github.com/rakenduste-programmeerimine-2020s/rakenduste-programmeerimine-TA-I-node#readme",
   "devDependencies": {
+    "eslint": "^7.9.0",
     "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-router": "^9.4.0",
+    "mongoose": "^5.10.4"
   }
 }
