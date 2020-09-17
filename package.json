@@ -32,6 +32,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "joi": "^17.2.1",
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0"

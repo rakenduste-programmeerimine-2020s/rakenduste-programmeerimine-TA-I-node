@@ -15,6 +15,7 @@ router.get('/topics', async (context) => {
 })
 
 router.post('/topics', async (context) => {
+    if(!context.request.body) return;
     const { name } = context.request.body
     console.log(context.request.body.name);
 
@@ -38,19 +39,17 @@ router.get('/topics/:id', async (context) => {
 });
 
 router.put('/topics/:id', async (context) => {
-    console.log(context.params.id);
+    if(!context.request.body) return;
     const _id =  context.params.id;
-    const topic = await Topic.findOne({ _id})
-    const updates = Object.keys(context.request.body)
+    const { name } = context.request.body
     
-    if (!topic) {
-        context.status = 400
-    }
-    updates.forEach((update) => topic[update] = context.request.body[update])
-    await topic.save()
-    context.status = 200
-    context.body = topic
+    const topic = await Topic.findOneAndUpdate({ _id: _id }, { name })
+    .catch(e => {
+        console.error(e);
+    });
 
+    context.status = 200;
+    context.body = topic;
     return;
 })
 
