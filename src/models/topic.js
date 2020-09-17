@@ -5,7 +5,9 @@ const TopicSchema = new Schema(
     {
         id: {},
         name: { type: String, required: true },
-        viewCount: { type: Number, default: 0 }
+        viewCount: { type: Number, default: 0 },
+        author: { type: String, default: null },
+        locale: {type: String, default: 'en'}
     },
     {
         timestamps: true
